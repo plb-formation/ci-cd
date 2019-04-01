@@ -1,0 +1,34 @@
+LOAD DATA
+INFILE '/tmp/dsd/catalog_returns_1_2.dat'
+BADFILE '/tmp/dsd/catalog_returns_1_2.bad'
+DISCARDFILE '/tmp/dsd/catalog_returns_1_2.dsc'
+INSERT INTO TABLE catalog_returns
+FIELDS TERMINATED BY "|" OPTIONALLY ENCLOSED BY '"' TRAILING NULLCOLS
+( CR_RETURNED_DATE_SK    ,
+  CR_RETURNED_TIME_SK     ,
+  CR_ITEM_SK               ,
+  CR_REFUNDED_CUSTOMER_SK   ,
+  CR_REFUNDED_CDEMO_SK      ,
+  CR_REFUNDED_HDEMO_SK    ,
+  CR_REFUNDED_ADDR_SK      ,
+  CR_RETURNING_CUSTOMER_SK ,
+  CR_RETURNING_CDEMO_SK   ,
+  CR_RETURNING_HDEMO_SK    ,
+  CR_RETURNING_ADDR_SK    ,
+  CR_CALL_CENTER_SK       ,
+  CR_CATALOG_PAGE_SK       ,
+  CR_SHIP_MODE_SK         ,
+  CR_WAREHOUSE_SK     ,
+  CR_REASON_SK        ,
+  CR_ORDER_NUMBER      ,
+  CR_RETURN_QUANTITY    ,
+  CR_RETURN_AMOUNT      ,
+  CR_RETURN_TAX         ,
+  CR_RETURN_AMT_INC_TAX ,
+  CR_FEE                 ,
+  CR_RETURN_SHIP_COST    ,
+  CR_REFUNDED_CASH       ,
+  CR_REVERSED_CHARGE    ,
+  CR_STORE_CREDIT        ,
+  CR_NET_LOSS
+)

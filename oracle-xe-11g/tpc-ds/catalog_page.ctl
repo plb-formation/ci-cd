@@ -1,0 +1,16 @@
+LOAD DATA
+INFILE '/tmp/dsd/catalog_page_1_2.dat'
+BADFILE '/tmp/dsd/catalog_page_1_2.bad'
+DISCARDFILE '/tmp/dsd/catalog_page_1_2.dsc'
+INSERT INTO TABLE catalog_page
+FIELDS TERMINATED BY "|" OPTIONALLY ENCLOSED BY '"' TRAILING NULLCOLS
+( CP_CATALOG_PAGE_SK   ,
+  CP_CATALOG_PAGE_ID   ,
+  CP_START_DATE_SK     ,
+  CP_END_DATE_SK       ,
+  CP_DEPARTMENT        ,
+  CP_CATALOG_NUMBER    ,
+  CP_CATALOG_PAGE_NUMBER ,
+  CP_DESCRIPTION        ,
+  CP_TYPE
+)

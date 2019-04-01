@@ -1,0 +1,5 @@
+[fury]
+name=Gemfury Private Repo
+baseurl=https://yum.fury.io/ambient-docker/
+enabled=1
+gpgcheck=0

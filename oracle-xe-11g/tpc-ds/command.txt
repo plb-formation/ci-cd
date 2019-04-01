@@ -1,0 +1,2 @@
+./dsdgen -scale 1 -dir /tmp/dsd -parallel 2 -child 1
+sqlldr userid=tpcds/p4ssw0rd control=dbgen_version.ctl  log=dbgen_version.log

@@ -1,0 +1,2 @@
+﻿ select * from "PlaylistTrack" where "TrackId"=3200;    
+--create index "trackid_idx" on "PlaylistTrack" ("TrackId")

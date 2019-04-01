@@ -1,0 +1,13 @@
+SELECT PNO FROM P WHERE PNAME='Screw' OR P.PNO IN
+( SELECT SP.PNO
+  FROM SP
+ WHERE SP.SNO = 'S1' );
+
+
+SELECT SP.PNO
+ FROM    SP
+ WHERE   SP.SNO = 'S1'
+ OR      SP.PNO IN
+       ( SELECT P.PNO
+         FROM   P
+         WHERE  P.PNAME = 'Screw' );

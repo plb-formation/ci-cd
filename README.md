@@ -175,4 +175,4 @@ docker-machine create --driver virtualbox --virtualbox-memory 6000 docker-ci-v1
 # Configure shell environment
 eval $(docker-machine env docker-ci-v1)
 ```
-# echo platinum
+

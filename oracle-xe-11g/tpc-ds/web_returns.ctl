@@ -1,0 +1,50 @@
+LOAD DATA
+INFILE '/tmp/dsd/web_returns_1_2.dat'
+BADFILE '/tmp/dsd/web_returns_1_2.bad'
+DISCARDFILE '/tmp/dsd/web_returns_1_2.dsc'
+INSERT INTO TABLE web_returns
+FIELDS TERMINATED BY "|" OPTIONALLY ENCLOSED BY '"' TRAILING NULLCOLS
+( WR_RETURNED_DATE_SK    ,
+  WR_RETURNED_TIME_SK    ,
+  WR_ITEM_SK             ,
+  WR_REFUNDED_CUSTOMER_SK,
+  WR_REFUNDED_CDEMO_SK   ,
+  WR_REFUNDED_HDEMO_SK   ,
+  WR_REFUNDED_ADDR_SK    ,
+  WR_RETURNING_CUSTOMER_SK,
+  WR_RETURNING_CDEMO_SK  ,
+  WR_RETURNING_HDEMO_SK   ,
+  WR_RETURNING_ADDR_SK    ,
+  WR_WEB_PAGE_SK         ,
+  WR_REASON_SK           ,
+  WR_ORDER_NUMBER        ,
+  WR_RETURN_QUANTITY     ,
+  WR_RETURN_AMT          ,
+  WR_RETURN_TAX          ,
+  WR_RETURN_AMT_INC_TAX  ,
+  WR_FEE                 ,
+  WR_RETURN_SHIP_COST    ,
+  WR_REFUNDED_CASH       ,
+  WR_REVERSED_CHARGE     ,
+  WR_ACCOUNT_CREDIT      ,
+  WR_NET_LOSS
+
+ )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
