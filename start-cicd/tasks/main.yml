@@ -12,6 +12,17 @@
 #    tag: latest
 #    path: ../postgres/11
 #    state: present
+
+- git:
+    repo: 'https://github.com/plb-formation/ci-cd.git'
+    dest:  ~/ci-cd
+- name: build Oracle 11g XE
+  docker_image:
+    name: oracle-xe-11g
+    tag: latest
+    path: ~/ci-cd/oracle-xe-11g
+    state: build
+    pull: false
 - name: Demarrer pg11 et timescaleDB
   docker_container:
     name: pg11TimecalaDB

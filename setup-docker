@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: pcspecialist
   become: true
   roles:
     - install-docker

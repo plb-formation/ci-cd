@@ -1,5 +1,4 @@
 ---
-- hosts: zabbix-pack
-  become: true
+- hosts: pcspecialist
   roles:
     - start-cicd
