@@ -1,0 +1,5 @@
+---
+- hosts: zabbix-pack
+  become: true
+  roles:
+    - start-cicd

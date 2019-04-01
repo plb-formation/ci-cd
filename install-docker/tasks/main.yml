@@ -1,0 +1,37 @@
+---
+# tasks file for install-docker
+- name: Install other packages used by Docker
+  yum: name={{item}} state=present update_cache=yes
+  with_items:
+    - git
+    - wget
+    - yum-utils
+    - device-mapper-persistent-data
+    - lvm2
+- name: Add docker repo
+  command: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+  changed_when: false
+- name: Add docker package
+  yum: name=docker-ce state=present update_cache=yes
+- name: service docker start
+  service: name=docker state=started enabled=yes
+- name: Install epel
+  yum: name=epel-release state=present update_cache=yes
+- name:  install monitoring tools
+  yum: name={{item}} state=present update_cache=yes
+  with_items:
+    - htop
+    - iotop
+    - iftop
+    - unzip
+- name: install python pip package
+  yum: name=python-pip state=present update_cache=yes
+- name: Install docker-compose and other packages
+  pip:  name={{item}}
+  with_items:
+    - docker-compose
+    - pyopenssl
+    - ndg-httpsclient
+    - pyasn1
+- name: set user to docker group
+  shell: usermod -aG docker {{ lookup('env', 'USER') }}

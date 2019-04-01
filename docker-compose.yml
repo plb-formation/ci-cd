@@ -1,0 +1,72 @@
+version: '2'
+
+networks:
+  prodnetwork:
+    driver: bridge
+
+services:
+ nexus:
+  hostname: nexus
+  build: ./nexus
+  ports:
+    - "18081:8081"
+  networks:
+    - prodnetwork
+
+ jenkins:
+  hostname: jenkins
+  build: ./jenkins
+  ports:
+    - "18080:8080"
+    - "50000:50000"
+  networks:
+    - prodnetwork
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    - /usr/bin/docker:/usr/bin/docker
+    - /opt/jenkins/:/var/jenkins_home
+  depends_on:
+    - nexus
+    - sonar
+    - jmeter
+  environment:
+    - NEXUS_PORT=8081
+    - SONAR_PORT=9000
+    - SONAR_DB_PORT=5432
+
+ sonar:
+  hostname: sonar
+  #build: ./sonar
+  image: ambientdocker/docker-sonar
+  ports:
+   - "19000:9000"
+   - "5432:5432"
+  networks:
+    - prodnetwork
+  depends_on:
+    - sonardb
+  environment:
+   - SONARQUBE_JDBC_URL=jdbc:postgresql://sonardb:5432/sonar
+   - SONARQUBE_JDBC_USERNAME=sonar
+   - SONARQUBE_JDBC_PASSWORD=sonar
+
+ sonardb:
+  hostname: sonardb
+  networks:
+    - prodnetwork
+  image: postgres
+  environment:
+   - POSTGRES_USER=sonar
+   - POSTGRES_PASSWORD=sonar
+  volumes:
+    - /opt/postgres/data:/var/lib/postgresql/data
+
+ jmeter:
+  hostname: jmeter
+  command: tail -f /dev/null
+  networks:
+    - prodnetwork
+  build: ./jmeter
+  volumes:
+    - /opt/jmeter/results:/results
+    - /opt/jmeter/scripts:/scripts

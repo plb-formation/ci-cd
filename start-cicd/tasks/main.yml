@@ -1,0 +1,42 @@
+---
+# tasks file for start-cicd
+#- name: build sonarQube 6.7.6 image
+#  docker_image:
+#    name: sonarqube
+#    tag: latest
+#    path: ../docker-sonarqube/6.7.6-community
+#    state: present
+#- name: build postgresql 11 image
+#  docker_image:
+#    name: postgresql11
+#    tag: latest
+#    path: ../postgres/11
+#    state: present
+- name: Demarrer pg11 et timescaleDB
+  docker_container:
+    name: pg11TimecalaDB
+    image: plbformations/pg11timescaledb
+    ports:
+      - "16111:5432"
+    volumes:
+      - "/opt/pg11/data:/var/lib/postgresql/data"
+    env:
+      POSTGRES_PASSWORD: "p4ssw0rd"
+- name: Demarrer pgAdmin4
+  docker_container:
+    name: pgAdmin4
+    image: dpage/pgadmin4
+    ports:
+      - "8080:80"
+    env:
+      PGADMIN_DEFAULT_EMAIL: "dockerlite@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "p4ssw0rd"
+- name: Wait for the pgAdmin4 web site to start"
+  pause: minutes=1
+- name: Check the status of PgAdmin"
+  command: curl -I {{ ansible_host }}:8080
+  register: curl_result
+- name: Ensure that proper data is present in stdout
+  assert:
+    that:
+      - "'pga4_session' in curl_result.stdout"
