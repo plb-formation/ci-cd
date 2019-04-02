@@ -1,17 +1,4 @@
 ---
-# tasks file for start-cicd
-#- name: build sonarQube 6.7.6 image
-#  docker_image:
-#    name: sonarqube
-#    tag: latest
-#    path: ../docker-sonarqube/6.7.6-community
-#    state: present
-#- name: build postgresql 11 image
-#  docker_image:
-#    name: postgresql11
-#    tag: latest
-#    path: ../postgres/11
-#    state: present
 
 - git:
     repo: 'https://github.com/plb-formation/ci-cd.git'

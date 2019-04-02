@@ -1,12 +1,10 @@
-FROM ubuntu:18.04
+FROM ambientdocker/docker-oracle-xe-11g
 
-MAINTAINER Wei-Ming Wu <wnameless@gmail.com>
+MAINTAINER Herve  <dockerlite@gmail.com>
 
-ADD assets /assets
-RUN /assets/setup.sh
+RUN apt-get -y update && \
+    apt-get -y install git vim python3
 
-EXPOSE 22
-EXPOSE 1521
-EXPOSE 8080
+COPY Chinook_Oracle.sql /
+COPY tpc-ds /
 
-CMD /usr/sbin/startup.sh && tail -f /dev/null
