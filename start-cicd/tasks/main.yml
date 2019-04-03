@@ -3,19 +3,31 @@
 - git:
     repo: 'https://github.com/plb-formation/ci-cd.git'
     dest:  ~/ci-cd
-- name: build Oracle 11g XE
+- name: Create a persistent docker volume for Oracle
+  docker_volume:
+    name: oracle_volume
+    state: present
+- name: build Oracle XE 11g
   docker_image:
     name: oracle-xe-11g
     tag: latest
     path: ~/ci-cd/oracle-xe-11g
     state: build
     pull: false
+- name: Demarrer oracle XE 11g
+  docker_container:
+    name: oracle11g
+    image: oracle-xe-11g
+    ports:
+      - "16111:1521"
+    volumes:
+      - "oracle_volume:/u01"
 - name: Demarrer pg11 et timescaleDB
   docker_container:
     name: pg11TimecalaDB
     image: plbformations/pg11timescaledb
     ports:
-      - "16111:5432"
+      - "15432:5432"
     volumes:
       - "/opt/pg11/data:/var/lib/postgresql/data"
     env:
