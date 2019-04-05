@@ -1,4 +1,5 @@
 ---
 - hosts: pcspecialist
+  become: true
   roles:
     - start-cicd

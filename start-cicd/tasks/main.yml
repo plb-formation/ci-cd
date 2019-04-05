@@ -19,10 +19,11 @@
     name: oracle11g
     image: oracle-xe-11g
     ports:
-      - "16111:1521"
+      - "15111:1521"
     volumes:
       - "oracle_volume:/u01"
-- name: Demarrer pg11 et timescaleDB
+      - "/var/run/docker.sock:/var/run/docker.sock"
+- name: Demarrer pg11timescaleDB
   docker_container:
     name: pg11TimecalaDB
     image: plbformations/pg11timescaledb
@@ -50,3 +51,17 @@
   assert:
     that:
       - "'pga4_session' in curl_result.stdout"
+- name: add container to inventory
+  add_host:
+    name:  oracle-xe-11g
+    ansible_connection: docker
+    #ansible_docker_extra_args: "-H=tcp://dev-docker-ci1.local:2375"
+  changed_when: false
+- name: run command in container
+  delegate_to: oracle-xe-11g
+  raw: /bin/ls -alrt /ChinookDatabase
+  register: exec_output
+- name: Show exec ouptut
+  debug: msg="{{exec_output.result }}"
+
+
