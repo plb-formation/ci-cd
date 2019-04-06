@@ -43,7 +43,7 @@
       PGADMIN_DEFAULT_EMAIL: "dockerlite@gmail.com"
       PGADMIN_DEFAULT_PASSWORD: "p4ssw0rd"
 - name: Wait for the pgAdmin4 web site to start"
-  pause: minutes=1
+  pause: seconds=30
 - name: Check the status of PgAdmin"
   command: curl -I {{ ansible_host }}:8080
   register: curl_result
@@ -51,17 +51,26 @@
   assert:
     that:
       - "'pga4_session' in curl_result.stdout"
-- name: add container to inventory
-  add_host:
-    name:  oracle-xe-11g
-    ansible_connection: docker
-    #ansible_docker_extra_args: "-H=tcp://dev-docker-ci1.local:2375"
-  changed_when: false
-- name: run command in container
-  delegate_to: oracle-xe-11g
-  raw: /bin/ls -alrt /ChinookDatabase
+- name: exec command in docker
+  command: docker exec oracle11g sh -l -c "ls -alrt /ChinookDatabase"
   register: exec_output
-- name: Show exec ouptut
-  debug: msg="{{exec_output.result }}"
+- name: debug
+  debug: msg="{{ exec_output.stdout }}"
+
+
+
+#- name: add container to inventory
+#  add_host:
+#    name: oracle
+#    ansible_connection: docker
+#    ansible_user: root
+#    ansible_docker_extra_args: "-H=tcp://remotehost:2375"
+#  changed_when: false
+#- name: run command in container
+#  delegate_to: oracle
+#  raw: /bin/ls -alrt /ChinookDatabase
+#  register: exec_output
+#- name: Show exec ouptut
+#  debug: msg="{{exec_output.result }}"
 
 
